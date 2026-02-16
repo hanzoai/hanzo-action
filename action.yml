@@ -1,0 +1,81 @@
+name: 'Hanzo Deploy'
+description: 'Deploy to Hanzo PaaS platform'
+author: 'Hanzo AI'
+branding:
+  icon: 'upload-cloud'
+  color: 'red'
+
+inputs:
+  api-key:
+    description: 'Hanzo API key or access token'
+    required: true
+  platform-url:
+    description: 'PaaS platform URL'
+    required: false
+    default: 'https://platform.hanzo.ai'
+  org:
+    description: 'Organization ID or name'
+    required: true
+  project:
+    description: 'Project ID or name'
+    required: true
+  env:
+    description: 'Environment ID or name'
+    required: true
+    default: 'production'
+  # Deploy mode: image or trigger
+  image:
+    description: 'Container image to deploy (e.g., ghcr.io/user/app:sha)'
+    required: false
+  container:
+    description: 'Container name (defaults to repo name)'
+    required: false
+  trigger:
+    description: 'Trigger a build from linked repo instead of deploying an image'
+    required: false
+    default: 'false'
+  replicas:
+    description: 'Number of replicas'
+    required: false
+    default: '1'
+  port:
+    description: 'Container port'
+    required: false
+    default: '8080'
+  wait:
+    description: 'Wait for deployment to be ready'
+    required: false
+    default: 'true'
+  timeout:
+    description: 'Timeout in seconds for wait'
+    required: false
+    default: '300'
+
+outputs:
+  container-id:
+    description: 'ID of the deployed container'
+  status:
+    description: 'Deployment status (success/failure)'
+  url:
+    description: 'Container URL if available'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Deploy to Hanzo
+      shell: bash
+      env:
+        HANZO_TOKEN: ${{ inputs.api-key }}
+        PLATFORM_API_URL: ${{ inputs.platform-url }}
+        INPUT_ORG: ${{ inputs.org }}
+        INPUT_PROJECT: ${{ inputs.project }}
+        INPUT_ENV: ${{ inputs.env }}
+        INPUT_IMAGE: ${{ inputs.image }}
+        INPUT_CONTAINER: ${{ inputs.container }}
+        INPUT_TRIGGER: ${{ inputs.trigger }}
+        INPUT_REPLICAS: ${{ inputs.replicas }}
+        INPUT_PORT: ${{ inputs.port }}
+        INPUT_WAIT: ${{ inputs.wait }}
+        INPUT_TIMEOUT: ${{ inputs.timeout }}
+      run: |
+        ${{ github.action_path }}/deploy.sh
