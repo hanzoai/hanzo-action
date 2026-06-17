@@ -1,4 +1,4 @@
-# hanzo-action — AI Assistant Context
+# hanzo-action
 
 # Hanzo Deploy Action
 
