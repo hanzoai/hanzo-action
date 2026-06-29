@@ -1,3 +1,5 @@
+<p align="center"><img src=".github/hero.svg" alt="hanzo-action" width="880"></p>
+
 # Hanzo Deploy Action
 
 Deploy containers to [Hanzo PaaS](https://platform.hanzo.ai) from GitHub Actions.
