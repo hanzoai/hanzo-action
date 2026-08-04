@@ -94,3 +94,5 @@ Get an API key from [hanzo.ai](https://hanzo.ai) and add it as a repository secr
 hanzo auth login
 hanzo auth status
 ```
+
+MIT OR Apache-2.0, at your option — see [HIP-0137](https://github.com/hanzoai/hips/blob/main/HIPs/hip-0137-one-license.md).
